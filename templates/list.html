@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="alert alert-primary" role="alert">
+    <h3>社内SNS</h3>
+</div>
+{% endblock header %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    {% for item in object_list %}
+    <div class="alert alert-success" role="alert">
+        <p>タイトル：<a href="{% url 'detail' item.pk %}" class="btn btn-primary">{{ item.title}}</a></p>
+        <p>投稿者：{{ item.author }}</p>
+        <a href="#" class="btn btn-primary disabled" role="button" aria-pressed="true">{{ item.like }} Likes</a>
+        <a href="#" class="btn btn-secondary disabled" role="button" aria-pressed="true">{{ item.read }} Read</a>
+    </div>
+    {% endfor%}
+    <a href = "{% url 'logout' %}" class="btn btn-success" role="button" aria-pressed="true">Logout</a>
+</div>
+{% else %}
+<p>
+    Please Login
+</p>
+<a href='/login/' class="btn btn-primary" role="button" aria-pressed="true">Login page</a>
+{% endif %}
+{% endblock content %}
